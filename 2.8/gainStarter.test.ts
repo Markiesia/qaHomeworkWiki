@@ -1,8 +1,8 @@
 class Animal {
     name: string;
-    sound: string;
+    sound: any;
     food: string;
-    constructor(name: string, sound: string, food: string) {
+    constructor(name: string, sound: any, food: string) {
       this.name = name;
       this.sound = sound;
       this.food = food;
@@ -18,7 +18,20 @@ class Animal {
    * @param {string} food - as expected
    * @param {string} saltwater - true if the fish is a saltwater fish
    */
-  
+  class Fish extends Animal {
+    saltwater: boolean;
+    constructor(name: string, food: string, saltwater: boolean) {
+      super(name, null, food);
+      this.saltwater = saltwater;
+    };
+    soundOff(): string {
+      return `The ${this.name} is a fish and does not make sounds.`;
+    };
+    habitat(): string {
+      return `The ${this.name} is a ${this.saltwater ? "saltwater": "freshwater"} fish.`;
+      //! true on the left false on the right
+    };
+  }
   /**
    * Bird extends Animal, but takes an additional property, and has an additional method, fly().
    * @param {string} name - as expected
@@ -26,7 +39,19 @@ class Animal {
    * @param {string} food - as expected
    * @param {number} flightSpeed - the flight speed of the bird, in meters/second. This should be 0 for flightless birds.
    */
-  
+  class Bird extends Animal {
+    flightSpeed: number;
+    constructor(name: string, sound: string, food: string, flightSpeed: number) {
+      super(name, sound, food);
+      this.flightSpeed = flightSpeed;
+    };
+    fly(): string {
+      if (this.flightSpeed > 0)
+      return `The ${this.name} flies at speeds of up to ${this.flightSpeed} meters per second!`
+      else return `The ${this.name} is a flightless bird.`
+    };
+  };
+
   describe("Testing animals", () => {
     test("a basic animal works as expected", () => {
       let lion = new Animal("lion", "roar", "meat");
